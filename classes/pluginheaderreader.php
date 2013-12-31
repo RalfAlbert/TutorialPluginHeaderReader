@@ -110,10 +110,10 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	public function __set( $name, $value = null ) {
 
 		if ( empty( $name ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': string name expected', E_USER_NOTICE );
+			trigger_error( 'Error in ' . __METHOD__ . ': (string) name expected', E_USER_NOTICE );
 
 		if ( empty( self::$id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': set id first', E_USER_NOTICE );
+			trigger_error( 'Error in ' . __METHOD__ . ': use get_instance( $id ) first to set up the ID', E_USER_NOTICE );
 
 		$id = self::$id;
 
