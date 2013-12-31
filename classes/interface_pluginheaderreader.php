@@ -26,7 +26,7 @@ interface I_PluginHeaderReader
 	 * @param string $value Value to be retrieved
 	 * @return string $value The value if set or empty string
 	 */
-	public function __get( $value );
+	public static function get( $value );
 
 	/**
 	 * Sets a value

@@ -67,7 +67,7 @@ function debug_output() {
 	/*
 	 * re-create an instance of the PluginHeaderReader
 	 */
-	$pluginheaders = PluginHeaderReader::get_instance( 'first' );
+	$pluginheaders = PluginHeaderReader::get( 'first' );
 
 	/*
 	 * outputs some data from the stored pluginheaders
@@ -94,7 +94,7 @@ function debug_output() {
 
 	$items = '';
 
-	foreach ( $pluginheaders::$data->first as $header => $value ) {
+	foreach ( $pluginheaders as $header => $value ) {
 		$items .= sprintf( "<li>%s:\t\t%s</li>", $header, $value );
 	}
 

@@ -84,6 +84,18 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	}
 
 	/**
+	 * Get all data saved with this id
+	 * @param string $id ID of the data
+	 * @return object
+	 */
+	public static function get( $id ) {
+
+		return ( isset( self::$data->$id ) ) ?
+			self::$data->$id : null;
+
+	}
+
+	/**
 	 * Returns a value
 	 * @param string $name Name of the value
 	 * @return mixed The value if it is set, else null
@@ -111,9 +123,6 @@ class PluginHeaderReader implements I_PluginHeaderReader
 
 		if ( empty( $name ) )
 			trigger_error( 'Error in ' . __METHOD__ . ': (string) name expected', E_USER_NOTICE );
-
-		if ( empty( self::$id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': use get_instance( $id ) first to set up the ID', E_USER_NOTICE );
 
 		$id = self::$id;
 
