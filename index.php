@@ -67,7 +67,7 @@ function debug_output() {
 	/*
 	 * re-create an instance of the PluginHeaderReader
 	 */
-	$pluginheaders = PluginHeaderReader::get( 'first' );
+	$pluginheaders = PluginHeaderReader::get_instance( 'first' );
 
 	/*
 	 * outputs some data from the stored pluginheaders

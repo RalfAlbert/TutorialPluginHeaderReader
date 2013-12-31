@@ -8,7 +8,7 @@
  */
 namespace RalfAlbert\Tutorial\PluginHeaderReader;
 
-class PluginHeaderReader implements I_PluginHeaderReader
+class PluginHeaderReader implements I_PluginHeaderReader, \IteratorAggregate
 {
 	/**
 	 * Object for data from plugin header
@@ -84,18 +84,6 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	}
 
 	/**
-	 * Get all data saved with this id
-	 * @param string $id ID of the data
-	 * @return object
-	 */
-	public static function get( $id ) {
-
-		return ( isset( self::$data->$id ) ) ?
-			self::$data->$id : null;
-
-	}
-
-	/**
 	 * Returns a value
 	 * @param string $name Name of the value
 	 * @return mixed The value if it is set, else null
@@ -110,7 +98,8 @@ class PluginHeaderReader implements I_PluginHeaderReader
 
 		$id = self::$id;
 
-		return ( isset( self::$data->$id->$name ) ) ? self::$data->$id->$name : null;
+		return ( isset( self::$data->$id->$name ) ) ?
+			self::$data->$id->$name : null;
 
 	}
 
@@ -159,4 +148,18 @@ class PluginHeaderReader implements I_PluginHeaderReader
 
 	}
 
+	/**
+	 * Returns the iterator
+	 * @return \ArrayIterator
+	 */
+	public function getIterator() {
+
+		if ( empty( self::$id ) )
+			trigger_error( 'Error in ' . __METHOD__ . ': call get_instance( $id ) first to set up the id', E_USER_NOTICE );
+
+		$id = self::$id;
+
+		return new \ArrayIterator( self::$data->$id );
+
+	}
 }
