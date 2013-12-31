@@ -19,7 +19,7 @@ interface I_PluginHeaderReader
 	 * Returns an instance of itself
 	 * @return object Instance of itself
 	 */
-	public static function get_instance();
+	public static function get_instance( $id );
 
 	/**
 	 * Magic get; returns the value if it is set

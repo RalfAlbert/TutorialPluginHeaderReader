@@ -17,6 +17,12 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	public static $data = array();
 
 	/**
+	 * Instance identifier
+	 * @var string
+	 */
+	public static $id = '';
+
+	/**
 	 * Flag to show if the pluginheaders was read
 	 * @var boolean
 	 */
@@ -26,10 +32,17 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	 * Reads the plugin header from given filename
 	 * @param string $filename File with plugin header
 	 * @return boolean False if the file does not exists
+	 * @return boolean Returns false on error or true on success
 	 */
-	public static function init( $filename = '' ) {
+	public static function init( $filename = '', $id = '' ) {
+
+		if ( ! defined( 'ABSPATH' ) )
+			trigger_error( 'This class requires WordPress. ABSPATH not found', E_USER_ERROR );
 
 		if ( empty( $filename ) || ! file_exists( $filename ) )
+			return false;
+
+		if ( empty( $id ) || ! is_string( $id ) )
 			return false;
 
 		if ( ! function_exists( 'get_plugin_data' ) )
@@ -39,12 +52,19 @@ class PluginHeaderReader implements I_PluginHeaderReader
 
 		if ( ! empty( $headers ) && is_array( $headers ) ) {
 
-			self::$data = (object) $headers;
-			self::$data->headers_was_set = true;
+			if ( ! is_object( self::$data ) )
+				self::$data = new \stdClass();
+
+			self::$id = new \stdClass();
+
+			self::$data->$id = (object) $headers;
+			self::$data->$id->headers_was_set = true;
 
 		}
 
 		unset( $headers );
+
+		return true;
 
 	}
 
@@ -52,8 +72,15 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	 * Returns an instance of itself
 	 * @return object Instance of itself
 	 */
-	public static function get_instance() {
+	public static function get_instance( $id ) {
+
+		if ( empty( $id ) || ! is_string( $id ) )
+			trigger_error( 'Error in ' . __METHOD__ . ': id expected', E_USER_NOTICE );
+
+		self::$id = $id;
+
 		return new self();
+
 	}
 
 	/**
@@ -66,7 +93,12 @@ class PluginHeaderReader implements I_PluginHeaderReader
 		if ( empty( $name ) )
 			trigger_error( 'Error in ' . __METHOD__ . ': string expected', E_USER_NOTICE );
 
-		return ( isset( self::$data->$name ) ) ? self::$data->$name : null;
+		if ( empty( self::$id ) )
+			trigger_error( 'Error in ' . __METHOD__ . ': set id first', E_USER_NOTICE );
+
+		$id = self::$id;
+
+		return ( isset( self::$data->$id->$name ) ) ? self::$data->$id->$name : null;
 
 	}
 
@@ -78,12 +110,20 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	public function __set( $name, $value = null ) {
 
 		if ( empty( $name ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': string expected', E_USER_NOTICE );
+			trigger_error( 'Error in ' . __METHOD__ . ': string name expected', E_USER_NOTICE );
+
+		if ( empty( self::$id ) )
+			trigger_error( 'Error in ' . __METHOD__ . ': set id first', E_USER_NOTICE );
+
+		$id = self::$id;
 
 		if ( ! is_object( self::$data ) )
 			self::$data = new \stdClass();
 
-		self::$data->$name = $value;
+		if ( ! is_object( self::$data->$id ) )
+			self::$data->$id = new \stdClass();
+
+		self::$data->$id->$name = $value;
 
 	}
 
@@ -94,10 +134,15 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	 */
 	public function __isset( $name ) {
 
-		if ( ! is_object( self::$data ) )
+		if ( empty( self::$id ) )
+			trigger_error( 'Error in ' . __METHOD__ . ': set id first', E_USER_NOTICE );
+
+		$id = self::$id;
+
+		if ( ! is_object( self::$data->$id ) )
 			return false;
 
-		return ( property_exists( self::$data, $name ) ) ?
+		return ( property_exists( self::$data->$id, $name ) ) ?
 			true : false;
 
 	}

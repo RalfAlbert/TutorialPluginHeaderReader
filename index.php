@@ -47,7 +47,7 @@ function plugin_construct() {
 		1
 	);
 
-	PluginHeaderReader::init( __FILE__ );
+	PluginHeaderReader::init( __FILE__, 'first' );
 
 	/*
 	 *  load the textdomain in a very complicated way ;)
@@ -67,7 +67,7 @@ function debug_output() {
 	/*
 	 * re-create an instance of the PluginHeaderReader
 	 */
-	$pluginheaders = PluginHeaderReader::get_instance();
+	$pluginheaders = PluginHeaderReader::get_instance( 'first' );
 
 	/*
 	 * outputs some data from the stored pluginheaders
@@ -94,11 +94,15 @@ function debug_output() {
 
 	$items = '';
 
-	foreach ( $pluginheaders::$data as $header => $value ) {
+	foreach ( $pluginheaders::$data->first as $header => $value ) {
 		$items .= sprintf( "<li>%s:\t\t%s</li>", $header, $value );
 	}
 
-	printf( '<h3>%s</h3><ol>%s</ol>', __( 'All headers:', $pluginheaders->TextDomain ), $items );
+	printf(
+		'<h3>%s</h3><ol>%s</ol>',
+		__( 'All headers:', $pluginheaders->TextDomain ),
+		$items
+	);
 
 }
 
@@ -109,7 +113,7 @@ function init_textdomain() {
 	 *
 	 * to load the textdomain, we need the basename of the plugin
 	 */
-	$pluginheaders           = PluginHeaderReader::get_instance();
+	$pluginheaders           = PluginHeaderReader::get_instance( 'first' );
 	$pluginheaders->basename = dirname( plugin_basename( __FILE__ ) );
 
 	PluginStarter::init_textdomain( $pluginheaders );
