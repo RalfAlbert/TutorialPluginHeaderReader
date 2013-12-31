@@ -25,7 +25,7 @@ function plugin_construct() {
 
 	/*
 	 * include classes & interfaces
-	*/
+	 */
 	$classes = glob( plugin_dir_path( __FILE__ ) . 'classes/*.php' );
 
 	foreach( $classes as $class ) {
@@ -34,12 +34,12 @@ function plugin_construct() {
 
 	/*
 	 * add a dashboard widget for the output
-	*/
+	 */
 	add_action( 'wp_dashboard_setup',	__NAMESPACE__ . '\add_dashboard_widget' );
 
 	/*
 	 * creates a PluginHeaderReader and read the plugin header
-	*/
+	 */
 	add_filter(
 		"extra_plugin_headers",
 		function( $extra_headers ) {
@@ -63,12 +63,12 @@ function debug_output() {
 
 	/*
 	 * re-create an instance of the PluginHeaderReader
-	*/
+	 */
 	$pluginheaders = PluginHeaderReader::get_instance( 'second' );
 
 	/*
 	 * outputs some data from the stored pluginheaders
-	*/
+	 */
 	printf(
 		'<p>%s: <strong>%s</strong></p>',
 		__( 'Name of the plugin which inserts this metabox', $pluginheaders->TextDomain ),

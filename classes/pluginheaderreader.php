@@ -75,7 +75,7 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	public static function get_instance( $id ) {
 
 		if ( empty( $id ) || ! is_string( $id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': id expected', E_USER_NOTICE );
+			trigger_error( 'Error in ' . __METHOD__ . ': parameter (string) id expected', E_USER_NOTICE );
 
 		self::$id = $id;
 
@@ -103,10 +103,10 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	public function __get( $name ) {
 
 		if ( empty( $name ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': string expected', E_USER_NOTICE );
+			trigger_error( 'Error in ' . __METHOD__ . ': parameter (string) name expected', E_USER_NOTICE );
 
 		if ( empty( self::$id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': set id first', E_USER_NOTICE );
+			trigger_error( 'Error in ' . __METHOD__ . ': call get_instance( $id ) first to set up the id', E_USER_NOTICE );
 
 		$id = self::$id;
 
@@ -122,7 +122,10 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	public function __set( $name, $value = null ) {
 
 		if ( empty( $name ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': (string) name expected', E_USER_NOTICE );
+			trigger_error( 'Error in ' . __METHOD__ . ': parameter (string) name expected', E_USER_NOTICE );
+
+		if ( empty( self::$id ) )
+			trigger_error( 'Error in ' . __METHOD__ . ': call get_instance( $id ) first to set up the id', E_USER_NOTICE );
 
 		$id = self::$id;
 
@@ -144,7 +147,7 @@ class PluginHeaderReader implements I_PluginHeaderReader
 	public function __isset( $name ) {
 
 		if ( empty( self::$id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': set id first', E_USER_NOTICE );
+			trigger_error( 'Error in ' . __METHOD__ . ': call get_instance( $id ) first to set up the id', E_USER_NOTICE );
 
 		$id = self::$id;
 
