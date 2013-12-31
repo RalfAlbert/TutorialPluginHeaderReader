@@ -1,5 +1,5 @@
 <?php
-namespace RalfAlbert\Tutorial\PluginHeader_Reader;
+namespace RalfAlbert\Tutorial\PluginHeaderReader;
 
 class PluginStarter
 {

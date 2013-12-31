@@ -4,7 +4,7 @@
  * @author Ralf Albert
  *
  */
-namespace RalfAlbert\Tutorial\PluginHeader_Reader;
+namespace RalfAlbert\Tutorial\PluginHeaderReader;
 
 interface I_PluginHeaderReader
 {

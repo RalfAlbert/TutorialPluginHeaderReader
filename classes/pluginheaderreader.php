@@ -6,7 +6,7 @@
  *
  * Reads the plugin header from a given file and stores the data
  */
-namespace RalfAlbert\Tutorial\PluginHeader_Reader;
+namespace RalfAlbert\Tutorial\PluginHeaderReader;
 
 class PluginHeaderReader implements I_PluginHeaderReader
 {

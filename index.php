@@ -12,7 +12,7 @@
  * DBVersion:		1.0.13
  * PHPMin:			5.3
  */
-namespace RalfAlbert\Tutorial\PluginHeader_Reader;
+namespace RalfAlbert\Tutorial\PluginHeaderReader;
 
 !( defined( 'ABSPATH' ) ) AND die( 'Standing On The Shoulders Of Giants' );
 
