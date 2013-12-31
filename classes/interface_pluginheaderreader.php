@@ -40,4 +40,5 @@ interface I_PluginHeaderReader
 	 * @param string $name
 	 */
 	public function __isset( $name );
+
 }
