@@ -9,6 +9,8 @@
  * Author URI:  http://yoda.neun12.de/
  * Version:     1.0
  * License:     GPLv3
+ * DBVersion:		1.0.13
+ * PHPMin:			5.3
  */
 namespace RalfAlbert\Tutorial\PluginHeader_Reader;
 
@@ -36,6 +38,15 @@ function plugin_construct() {
 	/*
 	 * creates a PluginHeaderReader and read the plugin header
 	 */
+	add_filter(
+		"extra_plugin_headers",
+		function( $extra_headers ) {
+			return array( 'DBVersion', 'PHPMin' );
+		},
+		0,
+		1
+	);
+
 	PluginHeaderReader::init( __FILE__ );
 
 	/*
@@ -80,6 +91,14 @@ function debug_output() {
 		__( 'The textdomain was successfully loaded?', $pluginheaders->TextDomain ),
 		$td_loaded
 	);
+
+	$items = '';
+
+	foreach ( $pluginheaders::$data as $header => $value ) {
+		$items .= sprintf( "<li>%s:\t\t%s</li>", $header, $value );
+	}
+
+	printf( '<h3>%s</h3><ol>%s</ol>', __( 'All headers:', $pluginheaders->TextDomain ), $items );
 
 }
 
