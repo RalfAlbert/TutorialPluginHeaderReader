@@ -55,7 +55,7 @@ class PluginHeaderReader implements I_PluginHeaderReader
 			if ( ! is_object( self::$data ) )
 				self::$data = new \stdClass();
 
-			self::$id = new \stdClass();
+			self::$data->$id = new \stdClass();
 
 			self::$data->$id = (object) $headers;
 			self::$data->$id->headers_was_set = true;
