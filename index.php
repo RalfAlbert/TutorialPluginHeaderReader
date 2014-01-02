@@ -38,14 +38,14 @@ function plugin_construct() {
 	/*
 	 * creates a PluginHeaderReader and read the plugin header
 	 */
-	add_filter(
-		"extra_plugin_headers",
-		function( $extra_headers ) {
-			return array( 'DBVersion', 'PHPMin' );
-		},
-		0,
-		1
-	);
+// 	add_filter(
+// 		"extra_plugin_headers",
+// 		function( $extra_headers ) {
+// 			return array( 'DBVersion', 'PHPMin' );
+// 		},
+// 		0,
+// 		1
+// 	);
 
 	PluginHeaderReader::init( __FILE__, 'first' );
 

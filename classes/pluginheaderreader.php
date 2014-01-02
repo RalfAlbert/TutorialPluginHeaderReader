@@ -162,4 +162,5 @@ class PluginHeaderReader implements I_PluginHeaderReader, \IteratorAggregate
 		return new \ArrayIterator( self::$data->$id );
 
 	}
+
 }
