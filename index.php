@@ -36,17 +36,20 @@ function plugin_construct() {
 	add_action( 'wp_dashboard_setup',	__NAMESPACE__ . '\add_dashboard_widget' );
 
 	/*
+	 * Add new file headers
+	 */
+	add_filter(
+		"extra_plugin_headers",
+		function( $extra_headers ) {
+			return array( 'DBVersion', 'PHPMin' );
+		},
+		0,
+		1
+	);
+
+	/*
 	 * creates a PluginHeaderReader and read the plugin header
 	 */
-// 	add_filter(
-// 		"extra_plugin_headers",
-// 		function( $extra_headers ) {
-// 			return array( 'DBVersion', 'PHPMin' );
-// 		},
-// 		0,
-// 		1
-// 	);
-
 	PluginHeaderReader::init( __FILE__, 'first' );
 
 	/*
