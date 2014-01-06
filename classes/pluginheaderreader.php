@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPress Class to read and keep the plugin file headers
+ * WordPress Class to read and keep the plugin headers
  *
  * PHP version 5.3
  *
@@ -22,26 +22,10 @@
  */
 namespace RalfAlbert\Tutorial\PluginHeaderReader;
 
-class PluginHeaderReader implements I_PluginHeaderReader, \IteratorAggregate
+use RalfAlbert\Tutorial\FileHeaderReader\FileHeaderReader;
+
+class PluginHeaderReader extends FileHeaderReader
 {
-	/**
-	 * Object for data from plugin header
-	 * @var Object
-	 */
-	public static $data = array();
-
-	/**
-	 * Instance identifier
-	 * @var string
-	 */
-	public static $id = '';
-
-	/**
-	 * Flag to show if the pluginheaders was read
-	 * @var boolean
-	 */
-	public static $headers_was_set = false;
-
 	/**
 	 * Reads the plugin header from given filename
 	 * @param string $filename File with plugin header
@@ -79,101 +63,6 @@ class PluginHeaderReader implements I_PluginHeaderReader, \IteratorAggregate
 		unset( $headers );
 
 		return true;
-
-	}
-
-	/**
-	 * Returns an instance of itself
-	 * @return object Instance of itself
-	 */
-	public static function get_instance( $id ) {
-
-		if ( empty( $id ) || ! is_string( $id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': parameter (string) id expected', E_USER_NOTICE );
-
-		self::$id = $id;
-
-		return new self();
-
-	}
-
-	/**
-	 * Returns a value
-	 * @param string $name Name of the value
-	 * @return mixed The value if it is set, else null
-	 */
-	public function __get( $name ) {
-
-		if ( empty( $name ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': parameter (string) name expected', E_USER_NOTICE );
-
-		if ( empty( self::$id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': call get_instance( $id ) first to set up the id', E_USER_NOTICE );
-
-		$id = self::$id;
-
-		return ( isset( self::$data->$id->$name ) ) ?
-			self::$data->$id->$name : null;
-
-	}
-
-	/**
-	 * Set a value
-	 * @param string $name Name of the value
-	 * @param string $value The value itself
-	 */
-	public function __set( $name, $value = null ) {
-
-		if ( empty( $name ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': parameter (string) name expected', E_USER_NOTICE );
-
-		if ( empty( self::$id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': call get_instance( $id ) first to set up the id', E_USER_NOTICE );
-
-		$id = self::$id;
-
-		if ( ! is_object( self::$data ) )
-			self::$data = new \stdClass();
-
-		if ( ! is_object( self::$data->$id ) )
-			self::$data->$id = new \stdClass();
-
-		self::$data->$id->$name = $value;
-
-	}
-
-	/**
-	 * Implements the isset() functionality to check if a propperty is set with isset()
-	 * @param string $name Name of the propperty to check
-	 * @return boolean True if the popperty is set, else false
-	 */
-	public function __isset( $name ) {
-
-		if ( empty( self::$id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': call get_instance( $id ) first to set up the id', E_USER_NOTICE );
-
-		$id = self::$id;
-
-		if ( ! is_object( self::$data->$id ) )
-			return false;
-
-		return ( property_exists( self::$data->$id, $name ) ) ?
-			true : false;
-
-	}
-
-	/**
-	 * Returns the iterator
-	 * @return \ArrayIterator
-	 */
-	public function getIterator() {
-
-		if ( empty( self::$id ) )
-			trigger_error( 'Error in ' . __METHOD__ . ': call get_instance( $id ) first to set up the id', E_USER_NOTICE );
-
-		$id = self::$id;
-
-		return new \ArrayIterator( self::$data->$id );
 
 	}
 

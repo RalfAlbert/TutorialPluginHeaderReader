@@ -20,7 +20,7 @@
  *
  * Reads the plugin header from a given file and stores the data
  */
-namespace RalfAlbert\Tutorial\PluginHeaderReader;
+namespace RalfAlbert\Tutorial\FileHeaderReader;
 
 abstract class FileHeaderReader implements I_PluginHeaderReader, \IteratorAggregate
 {
