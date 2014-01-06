@@ -78,7 +78,7 @@ function debug_output() {
 
 	$items = '';
 
-	foreach ( $pluginheaders::$data->second as $header => $value ) {
+	foreach ( $pluginheaders as $header => $value ) {
 		$items .= sprintf( "<li>%s:\t\t%s</li>", $header, $value );
 	}
 

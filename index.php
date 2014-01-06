@@ -87,7 +87,8 @@ function debug_output() {
 	 * this is an example how to store additional data in the PluginHeaderReader class and use it in combination with the
 	 * pluginheaders to load a textdomain
 	 */
-	$td_loaded = ( true == PluginStarter::$textdomain_loaded ) ? __( 'Yes', $pluginheaders->TextDomain ) : __( 'No', $pluginheaders->TextDomain );
+	$td_loaded = ( true == PluginStarter::$textdomain_loaded ) ?
+		__( 'Yes', $pluginheaders->TextDomain ) : __( 'No', $pluginheaders->TextDomain );
 
 	printf(
 		'<p>%s %s</p>',
