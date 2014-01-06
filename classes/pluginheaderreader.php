@@ -66,4 +66,19 @@ class PluginHeaderReader extends FileHeaderReader
 
 	}
 
+	/**
+	 * Returns an instance of itself
+	 * @return object Instance of itself
+	 */
+	public static function get_instance( $id ) {
+
+		if ( empty( $id ) || ! is_string( $id ) )
+			trigger_error( 'Error in ' . __METHOD__ . ': parameter (string) id expected', E_USER_NOTICE );
+
+		self::$id = $id;
+
+		return new self();
+
+	}
+
 }
