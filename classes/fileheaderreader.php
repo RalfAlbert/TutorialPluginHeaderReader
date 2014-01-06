@@ -58,7 +58,7 @@ abstract class FileHeaderReader implements I_FileHeaderReader, \IteratorAggregat
 		$id = self::$id;
 
 		return ( isset( self::$data->$id->$name ) ) ?
-		self::$data->$id->$name : null;
+			self::$data->$id->$name : null;
 
 	}
 
@@ -103,7 +103,7 @@ abstract class FileHeaderReader implements I_FileHeaderReader, \IteratorAggregat
 			return false;
 
 		return ( property_exists( self::$data->$id, $name ) ) ?
-		true : false;
+			true : false;
 
 	}
 
